@@ -1,5 +1,6 @@
 services:
   app:
+
     image: analytics:v1
     build:
       context: .
@@ -27,3 +28,14 @@ services:
           path: compose.yaml
         - action: rebuild
           path: requirements.txt
+  db_service:
+    image: postgres:17.4
+    environment:
+      - POSTGRES_USER=value
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+
+volumes:
+  timescaledb_data:
